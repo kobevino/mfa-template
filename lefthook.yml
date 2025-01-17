@@ -1,0 +1,6 @@
+pre-commit:
+  commands:
+    check:
+      glob: "*.{ts,tsx}"
+      run: pnpm biome check --write --error-on-warnings --no-errors-on-unmatched --files-ignore-unknown=true
+      staged_fixed: true

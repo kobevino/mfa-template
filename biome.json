@@ -7,7 +7,8 @@
 	},
 	"files": {
 		"ignoreUnknown": false,
-		"ignore": []
+		"ignore": [],
+		"include": ["src/**/*.tsx", "src/**/*.ts"]
 	},
 	"formatter": {
 		"enabled": true,
@@ -20,9 +21,9 @@
 		"enabled": true,
 		"rules": {
 			"recommended": true,
-      "a11y": {
-        "useButtonType": "off"
-      }
+			"a11y": {
+				"useButtonType": "off"
+			}
 		}
 	},
 	"javascript": {

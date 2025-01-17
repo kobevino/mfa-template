@@ -1,14 +1,35 @@
 import HealthApp from 'health/App';
 import InsuranceApp from 'insurance/App';
 import MydataApp from 'mydata/App';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+
+const router = createBrowserRouter([
+	{
+		path: '/',
+    element: <div>Host App</div>,
+	},
+	{
+		path: '/health/*',
+    element: <HealthApp />,
+	},
+	{
+		path: '/insurance/*',
+    element: <InsuranceApp />,
+	},
+	{
+		path: '/mydata/*',
+    element: <MydataApp />,
+	},
+	{
+		path: '*',
+    element: <div>404 Host Error</div>,
+	},
+])
 
 function App() {
 	return (
 		<div>
-			Host App
-			<HealthApp />
-			<InsuranceApp />
-			<MydataApp />
+			<RouterProvider router={router} />
 		</div>
 	);
 }

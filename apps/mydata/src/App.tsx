@@ -1,5 +1,28 @@
+import { Route, Routes } from 'react-router-dom';
+
+const routes = [
+	{
+		path: '',
+		element: <div>Mydata App</div>
+	},
+	{
+		path: 'test',
+		element: <div>Mydata Test App</div>
+	},
+	{
+		path: '*',
+		element: <div>404 Mydata Error</div>
+	}
+]
+
 function App() {
-	return <div>Mydata App</div>;
+	return (
+		<Routes>
+			{routes.map(({ path, element }) => {
+				return <Route key={path} path={path} element={element} />
+			})}
+		</Routes>
+	)
 }
 
 export default App;

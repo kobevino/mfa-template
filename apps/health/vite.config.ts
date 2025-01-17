@@ -12,7 +12,7 @@ export default defineConfig({
 			exposes: {
 				'./App': './src/App.tsx',
 			},
-			shared: ['react', 'react-dom'],
+			shared: ['react', 'react-dom', 'react-router-dom'],
 		}),
 	],
 	build: {

@@ -13,7 +13,7 @@ export default defineConfig({
 				insurance: 'http://localhost:3002/assets/remoteEntry.js',
 				mydata: 'http://localhost:3003/assets/remoteEntry.js',
 			},
-			shared: ['react', 'react-dom'],
+			shared: ['react', 'react-dom', 'react-router-dom'],
 		}),
 	],
 	build: {

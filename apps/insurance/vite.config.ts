@@ -12,7 +12,7 @@ export default defineConfig({
 			exposes: {
 				'./App': './src/App',
 			},
-			shared: ['react', 'react-dom'],
+			shared: ['react', 'react-dom', 'react-router-dom'],
 		}),
 	],
 	build: {

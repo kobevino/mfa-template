@@ -34,6 +34,12 @@ $ pnpm --filter [package name] add [dependency]
 $ pnpm --filter [package name] remove [dependency]
 ```
 
+* 각 프로젝트 HMR 개발 모드
+
+```sh
+$ pnpm --filter [package name] dev:alone
+```
+
 * packages 모듈 사용시 `pnpm install` or `pnpm --filter [package namae] add @repo/ui`로 설치
 
 ```json

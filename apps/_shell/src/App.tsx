@@ -3,6 +3,8 @@ import InsuranceApp from 'insurance/App';
 import MydataApp from 'mydata/App';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
+console.log(import.meta.env.MODE)
+
 const router = createBrowserRouter([
 	{
 		path: '/',

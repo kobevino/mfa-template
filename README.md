@@ -68,8 +68,8 @@ packages/
 * app: 애플리케이션 초기화 및 provider, router, global style 전역 설정
 * pages: 해당 레이어는 애플리케이션 페이지를 담당
 * widgets: 페이지에서 사용되는 독립적인 UI 담당
-* features: 해당 레이어는 검색 키워드 및 북마크를 다루는 비즈니스 기능을 담당
-* entities: 해당 레이어는 bookmark와 document의 api, model, hook 등을 다루는 비즈니스 엔티티 영역 담당
+* features: 해당 레이어는 비즈니스 가치를 전달하는 기능을 담당.
+* entities: 해당 레이어는 api, model, hook 등을 다루는 비즈니스 엔티티 영역 담당
 
 ## Handling Routing
 

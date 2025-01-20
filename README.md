@@ -1,84 +1,128 @@
-# Turborepo starter
+# MFA Template
 
-This is an official starter Turborepo.
+This is a micro-frontend project that is based on Turborepo.
 
-## Using this example
+## Prerequisite
 
-Run the following command:
+* Node v20.10.0
+* pnpm v9.0.0
+* vite - 설정의 복잡성과 빌드 성능면서 vite가 더 효율적임. 개발시 native esm 모듈 그대로 사용.
+* react-swc-ts - swc는 rust로 작성된 고성능 컴파일러, babel보다 빠름.
+
+## Usage
+
+* 모든 dependeny 설치
 
 ```sh
-npx create-turbo@latest
+$ pnpm i
 ```
 
-## What's inside?
+* Root에서 사용시 각 프로젝트의 dev 모드 병렬 개발 서버 실행
 
-This Turborepo includes the following packages/apps:
-
-### Apps and Packages
-
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
-
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-### Utilities
-
-This Turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-
-### Build
-
-To build all apps and packages, run the following command:
-
-```
-cd my-turborepo
-pnpm build
+```sh
+$ pnpm dev 
+$ pnpm build
+$ pnpm check
 ```
 
-### Develop
+* 각 프로젝트 개별 실행
 
-To develop all apps and packages, run the following command:
-
-```
-cd my-turborepo
-pnpm dev
-```
-
-### Remote Caching
-
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
-
-Turborepo can use a technique known as [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
-
-```
-cd my-turborepo
-npx turbo login
+```sh
+$ pnpm --filter [package name] dev
+$ pnpm --filter [package name] build
+$ pnpm --filter [package name] add [dependency]
+$ pnpm --filter [package name] remove [dependency]
 ```
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
+* packages 모듈 사용시 `pnpm install` or `pnpm --filter [package namae] add @repo/ui`로 설치
 
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
+```json
+{
+  "dependencies": {
+    "@repo/ui": "workspace:*"
+  }
+}
 ```
-npx turbo link
+
+## Scaffolding
+
+```bash
+apps/
+  ├── _shell/
+  ├── health/
+  │     └── src
+  │          ├── app/
+  │          ├── pages/
+  │          ├── widgets/
+  │          ├── features/
+  │          └── entities/
+  ├── insurance/
+  └── mydata/
+packages/
+  ├── typescript-config/
+  ├── shared/
+  └── ui/
 ```
 
-## Useful Links
+* packages: apps안에서 공통으로 필요한 코드들은 packages에서 관리
+* app: 애플리케이션 초기화 및 provider, router, global style 전역 설정
+* pages: 해당 레이어는 애플리케이션 페이지를 담당
+* widgets: 페이지에서 사용되는 독립적인 UI 담당
+* features: 해당 레이어는 검색 키워드 및 북마크를 다루는 비즈니스 기능을 담당
+* entities: 해당 레이어는 bookmark와 document의 api, model, hook 등을 다루는 비즈니스 엔티티 영역 담당
 
-Learn more about the power of Turborepo:
+## Handling Routing
 
-- [Tasks](https://turbo.build/repo/docs/core-concepts/monorepos/running-tasks)
-- [Caching](https://turbo.build/repo/docs/core-concepts/caching)
-- [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching)
-- [Filtering](https://turbo.build/repo/docs/core-concepts/monorepos/filtering)
-- [Configuration Options](https://turbo.build/repo/docs/reference/configuration)
-- [CLI Usage](https://turbo.build/repo/docs/reference/command-line-reference)
+* Hybrid Approach
+
+- Top-Level routes는 shell에서 관리
+- nested routes는 각각의 마이크로 프론트엔드에서 관리
+
+```tsx
+// shell
+const router = createBrowserRouter([
+	{
+		path: '/',
+		element: <div>Host App</div>,
+	},
+	{
+		path: '/health/*',
+		element: <HealthApp />,
+	},
+	{
+		path: '*',
+		element: <div>404 Host Error</div>,
+	},
+]);
+```
+
+```tsx
+// each micro frontend
+const routes = [
+	{
+		path: '/',
+		element: <div>Health App</div>,
+	},
+	{
+		path: '/test',
+		element: <div>Health Test App</div>,
+	},
+	{
+		path: '*',
+		element: <div>404 Health Error</div>,
+	},
+];
+```
+
+* shell에서 실행시
+  - /health -> Health App
+  - /health/test -> Health Test App
+  - /health/error -> 404 Health Error
+
+* health micro frontend에서 실행시
+  - / -> Health App
+  - /test -> Health Test App
+  - /error -> 404 Health Error
+
+- [Handling Routing in a Microfrontend Architecture](https://article.arunangshudas.com/handling-routing-in-a-microfrontend-architecture-71472a3ec3d6)
+- [(번역) 기능 분할 설계 - 최고의 프런트엔드 아키텍처](https://emewjin.github.io/feature-sliced-design/)

@@ -7,7 +7,7 @@ export default defineConfig({
 	plugins: [
 		react(),
 		federation({
-			name: 'host',
+			name: 'shell',
 			remotes: {
 				health: 'http://localhost:3001/assets/remoteEntry.js',
 				insurance: 'http://localhost:3002/assets/remoteEntry.js',

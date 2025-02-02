@@ -7,11 +7,13 @@ phases:
       - npm install -g pnpm
   pre_build:
     commands:
+      - echo $GITHUB_URL
       - yum install -y git  # Git 설치
       - pnpm i
       - echo "Checking for changes in apps"
-      # - git remote add origin $CODECOMMIT_URL  # CodeCommit URL 설정
-      # - git fetch origin main --depth=1  # 최신 커밋 가져오기
+      - git init
+      - git remote add origin $GITHUB_URL
+      - git fetch origin main --depth=1
       - |
         CHANGED_DIRS=$(git diff --name-only HEAD~1 | grep -E 'apps/.*' | cut -d/ -f2 | sort -u)
         echo "Changed directories: $CHANGED_DIRS"

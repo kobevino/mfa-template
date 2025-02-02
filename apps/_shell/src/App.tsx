@@ -21,6 +21,14 @@ const router = createBrowserRouter([
 		),
 	},
 	{
+		path: '/test',
+		element: (
+			<div>
+				test
+			</div>
+		),
+	},
+	{
 		path: '/health/*',
 		element: <HealthApp />,
 	},

@@ -13,7 +13,7 @@ phases:
       - pnpm build
   post_build:
     commands:
-      - aws s3 sync ./apps/_shell/dist/ s3://mfa-template-s3 --delete
+      - aws s3 sync ./apps/_shell/dist/ s3://mfa-template-s3 --exclude "mfa-template-pipelin/*"
 artifacts:
   files:
     - "**/*"

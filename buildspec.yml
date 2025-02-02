@@ -9,6 +9,7 @@ phases:
     commands:
       - pnpm i
       - echo "Checking for changes in apps"
+      - git fetch origin main --depth=1  # 최신 커밋 가져오기
       - |
         CHANGED_DIRS=$(git diff --name-only HEAD~1 | grep -E 'apps/.*' | cut -d/ -f2 | sort -u)
         echo "Changed directories: $CHANGED_DIRS"

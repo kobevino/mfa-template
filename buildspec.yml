@@ -72,6 +72,7 @@ phases:
               ;;
           esac
         done
+      - aws s3 rm s3://mfa-template-s3/mfa-template-pipelin/ --recursive
       - aws cloudfront create-invalidation --distribution-id E1RI9WI1EF5TV3 --paths '/*'
 artifacts:
   files:

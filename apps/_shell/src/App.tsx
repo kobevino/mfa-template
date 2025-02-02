@@ -8,7 +8,7 @@ console.log(import.meta.env.MODE);
 const router = createBrowserRouter([
 	{
 		path: '/',
-		element: <div>Host App test</div>,
+		element: <div>Host App</div>,
 	},
 	{
 		path: '/health/*',

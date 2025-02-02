@@ -14,6 +14,9 @@ phases:
   post_build:
     commands:
       - aws s3 sync ./apps/_shell/dist/ s3://mfa-template-s3 --exclude "mfa-template-pipelin/*"
+      - aws s3 sync ./apps/health/dist/ s3://mfa-template-s3/health
+      - aws s3 sync ./apps/insurance/dist/ s3://mfa-template-s3/insurance
+      - aws s3 sync ./apps/mydata/dist/ s3://mfa-template-s3/mydata
 artifacts:
   files:
     - "**/*"

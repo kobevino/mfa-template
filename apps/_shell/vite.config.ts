@@ -3,6 +3,7 @@ import react from '@vitejs/plugin-react-swc';
 import { defineConfig } from 'vite';
 
 const S3_DOMAIN = 'http://mfa-template-s3.s3-website.ap-northeast-2.amazonaws.com'
+const CLOUDFRONT_DOMAIN = 'https://d2th422xcz638k.cloudfront.net'
 
 const getRemoteUrls = (mode: string) => {
   const isProd = mode === 'production';
@@ -10,15 +11,15 @@ const getRemoteUrls = (mode: string) => {
   return {
     health: isProd 
       // ? 'http://mfa-health.s3-website.ap-northeast-2.amazonaws.com/assets/remoteEntry.js'
-			? `${S3_DOMAIN}/health/assets/remoteEntry.js`
+			? `${CLOUDFRONT_DOMAIN}/health/assets/remoteEntry.js`
       : 'http://localhost:3001/assets/remoteEntry.js',
     insurance: isProd
       // ? 'http://mfa-insurance.s3-website.ap-northeast-2.amazonaws.com/assets/remoteEntry.js'
-			? `${S3_DOMAIN}/insurance/assets/remoteEntry.js`
+			? `${CLOUDFRONT_DOMAIN}/insurance/assets/remoteEntry.js`
       : 'http://localhost:3002/assets/remoteEntry.js',
     mydata: isProd
       // ? 'http://mfa-mydata.s3-website.ap-northeast-2.amazonaws.com/assets/remoteEntry.js'
-			? `${S3_DOMAIN}/mydata/assets/remoteEntry.js`
+			? `${CLOUDFRONT_DOMAIN}/mydata/assets/remoteEntry.js`
       : 'http://localhost:3003/assets/remoteEntry.js',
   };
 };

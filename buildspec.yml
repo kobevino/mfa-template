@@ -86,4 +86,4 @@ artifacts:
   base-directory: ./
 cache:
   paths:
-    - "node_modules/**/*"
+    - "/root/.pnpm/**/*"

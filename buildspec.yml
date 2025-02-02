@@ -21,3 +21,6 @@ artifacts:
   files:
     - "**/*"
   base-directory: ./
+  discard-paths: yes
+  exclude-paths:
+    - "mfa-template-pipelin/*"

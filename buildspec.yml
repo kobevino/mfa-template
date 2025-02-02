@@ -20,7 +20,5 @@ phases:
 artifacts:
   files:
     - "**/*"
+    - "!mfa-template-pipelin/**"
   base-directory: ./
-  discard-paths: yes
-  exclude-paths:
-    - "mfa-template-pipelin/*"

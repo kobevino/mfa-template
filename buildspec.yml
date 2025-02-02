@@ -46,33 +46,33 @@ phases:
               ;;
           esac
         done
-  # post_build:
-  #   commands:
-  #     - |
-  #       for dir in $CHANGED_DIRS; do
-  #         case "$dir" in
-  #           "_shell")
-  #             echo "Syncing _shell app"
-  #             aws s3 sync ./apps/_shell/dist/ s3://mfa-template-s3
-  #             ;;
-  #           "health")
-  #             echo "Syncing health app"
-  #             aws s3 sync ./apps/health/dist/ s3://mfa-template-s3/health --exclude "index.html"
-  #             ;;
-  #           "insurance")
-  #             echo "Syncing insurance app"
-  #             aws s3 sync ./apps/insurance/dist/ s3://mfa-template-s3/insurance --exclude "index.html"
-  #             ;;
-  #           "mydata")
-  #             echo "Syncing mydata app"
-  #             aws s3 sync ./apps/mydata/dist/ s3://mfa-template-s3/mydata --exclude "index.html"
-  #             ;;
-  #           *)
-  #             echo "Unknown directory: $dir"
-  #             ;;
-  #         esac
-  #       done
-  #     - aws cloudfront create-invalidation --distribution-id E1RI9WI1EF5TV3 --paths '/*'
+  post_build:
+    commands:
+      - |
+        for dir in $CHANGED_DIRS; do
+          case "$dir" in
+            "_shell")
+              echo "Syncing _shell app"
+              aws s3 sync ./apps/_shell/dist/ s3://mfa-template-s3
+              ;;
+            "health")
+              echo "Syncing health app"
+              aws s3 sync ./apps/health/dist/ s3://mfa-template-s3/health --exclude "index.html"
+              ;;
+            "insurance")
+              echo "Syncing insurance app"
+              aws s3 sync ./apps/insurance/dist/ s3://mfa-template-s3/insurance --exclude "index.html"
+              ;;
+            "mydata")
+              echo "Syncing mydata app"
+              aws s3 sync ./apps/mydata/dist/ s3://mfa-template-s3/mydata --exclude "index.html"
+              ;;
+            *)
+              echo "Unknown directory: $dir"
+              ;;
+          esac
+        done
+      - aws cloudfront create-invalidation --distribution-id E1RI9WI1EF5TV3 --paths '/*'
 artifacts:
   files:
     - "**/*"

@@ -8,7 +8,7 @@ const router = createBrowserRouter([
 		path: '/',
 		element: (
 			<div>
-				host app 123
+				host app 
 				<nav>
 					<Link to="/health">health</Link>
 					<br />

@@ -9,7 +9,7 @@ phases:
     commands:
       - pnpm i
       - echo "Checking for changes in apps"
-      - CHANGED_DIRS=$(git diff --name-only $CODEBUILD_SRC_DIR | grep -E 'apps/.*' | cut -d/ -f2 | sort -u)
+      - CHANGED_DIRS=$(git diff --name-only HEAD~1 | grep -E 'apps/.*' | cut -d/ -f2 | sort -u)
       - echo "Changed directories: $CHANGED_DIRS"
   build:
     commands:

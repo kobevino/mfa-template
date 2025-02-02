@@ -3,7 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 const routes = [
 	{
 		path: '/',
-		element: <div>Health App</div>,
+		element: <div>Health App 건강</div>,
 	},
 	{
 		path: '/test',

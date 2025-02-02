@@ -18,8 +18,10 @@ phases:
       - aws s3 sync ./apps/health/dist/ s3://mfa-template-s3/health --exclude "index.html"
       - aws s3 sync ./apps/insurance/dist/ s3://mfa-template-s3/insurance --exclude "index.html"
       - aws s3 sync ./apps/mydata/dist/ s3://mfa-template-s3/mydata --exclude "index.html"
+      - aws cloudfront create-invalidation --distribution-id E1RI9WI1EF5TV3 --paths '/*'
 artifacts:
   files:
     - "**/*"
   base-directory: ./
+  
 

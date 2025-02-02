@@ -1,14 +1,21 @@
 import HealthApp from 'health/App';
 import InsuranceApp from 'insurance/App';
 import MydataApp from 'mydata/App';
-import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-
-console.log(import.meta.env.MODE);
+import { Link, RouterProvider, createBrowserRouter } from 'react-router-dom';
 
 const router = createBrowserRouter([
 	{
 		path: '/',
-		element: <div>Host App</div>,
+		element: (
+			<div>
+				host
+				<nav>
+					<Link to="/health">health</Link><br />
+					<Link to="/insurance">insurance</Link><br />
+					<Link to="/mydata">mydata</Link><br />
+				</nav>
+			</div>
+		),
 	},
 	{
 		path: '/health/*',
@@ -30,9 +37,11 @@ const router = createBrowserRouter([
 
 function App() {
 	return (
-		<div>
-			<RouterProvider router={router} />
-		</div>
+		
+			<div>
+				<RouterProvider router={router} />
+			</div>
+		
 	);
 }
 

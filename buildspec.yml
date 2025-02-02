@@ -48,7 +48,6 @@ phases:
         done
   post_build:
     commands:
-      - if [ -d "./mfa-template-pipelin" ]; then rm -rf ./mfa-template-pipelin; fi
       - |
         for dir in $CHANGED_DIRS; do
           case "$dir" in
@@ -73,6 +72,7 @@ phases:
               ;;
           esac
         done
+      - if [ -d "./mfa-template-pipelin" ]; then rm -rf ./mfa-template-pipelin; fi
       - aws cloudfront create-invalidation --distribution-id E1RI9WI1EF5TV3 --paths '/*'
 artifacts:
   files:

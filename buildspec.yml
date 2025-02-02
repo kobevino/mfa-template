@@ -11,12 +11,7 @@ phases:
       - yum install -y git  # Git 설치
       - pnpm i
       - echo "Checking for changes in apps"
-      - git init
-      - git config --global init.defaultBranch main  # 기본 브랜치를 main으로 설정
-      - git branch -M main  # 현재 브랜치를 main으로 변경
-      - git remote add origin $GITHUB_URL
       - git fetch origin main --depth=1
-      - git reset --hard origin/main
       - |
         CHANGED_DIRS=$(git diff --name-only HEAD~1 | grep -E 'apps/.*' | cut -d/ -f2 | sort -u)
         echo "Changed directories: $CHANGED_DIRS"

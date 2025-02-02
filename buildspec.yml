@@ -48,12 +48,12 @@ phases:
         done
   post_build:
     commands:
+      - if [ -d "./mfa-template-pipelin" ]; then rm -rf ./mfa-template-pipelin; fi
       - |
         for dir in $CHANGED_DIRS; do
           case "$dir" in
             "_shell")
               echo "Syncing _shell app"
-              rm -rf ./mfa-template-pipelin
               aws s3 sync ./apps/_shell/dist/ s3://mfa-template-s3
               ;;
             "health")

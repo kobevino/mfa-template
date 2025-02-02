@@ -8,11 +8,14 @@ const router = createBrowserRouter([
 		path: '/',
 		element: (
 			<div>
-				host
+				host app
 				<nav>
-					<Link to="/health">health</Link><br />
-					<Link to="/insurance">insurance</Link><br />
-					<Link to="/mydata">mydata</Link><br />
+					<Link to="/health">health</Link>
+					<br />
+					<Link to="/insurance">insurance</Link>
+					<br />
+					<Link to="/mydata">mydata</Link>
+					<br />
 				</nav>
 			</div>
 		),
@@ -37,11 +40,9 @@ const router = createBrowserRouter([
 
 function App() {
 	return (
-		
-			<div>
-				<RouterProvider router={router} />
-			</div>
-		
+		<div>
+			<RouterProvider router={router} />
+		</div>
 	);
 }
 

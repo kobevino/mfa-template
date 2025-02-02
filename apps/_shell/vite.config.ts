@@ -2,7 +2,7 @@ import federation from '@originjs/vite-plugin-federation';
 import react from '@vitejs/plugin-react-swc';
 import { defineConfig } from 'vite';
 
-const S3_DOMAIN = 'http://mfa-template-s3.s3-website.ap-northeast-2.amazonaws.com'
+// const S3_DOMAIN = 'http://mfa-template-s3.s3-website.ap-northeast-2.amazonaws.com'
 const CLOUDFRONT_DOMAIN = 'https://d2th422xcz638k.cloudfront.net'
 
 const getRemoteUrls = (mode: string) => {

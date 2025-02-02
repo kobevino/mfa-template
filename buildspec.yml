@@ -5,14 +5,14 @@ phases:
     commands:
       - n 20.10.0
       - npm install -g pnpm
-    pre_build:
-      - pnpm i
-    build:
-      commands:
-        - pnpm build
-    post_build:
-      commands:
-        - aws s3 sync ./apps/_shell/dist/ s3://mfa-template-s3
+  pre_build:
+    - pnpm i
+  build:
+    commands:
+      - pnpm build
+  post_build:
+    commands:
+      - aws s3 sync ./apps/_shell/dist/ s3://mfa-template-s3
 artifacts:
   files:
     - "**/*"

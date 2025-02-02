@@ -16,7 +16,7 @@ phases:
       - git branch -M main  # 현재 브랜치를 main으로 변경
       - git remote add origin $GITHUB_URL
       - git fetch origin main
-      - git reset --hard origin/main
+      # - git reset --hard origin/main
       - |
         CHANGED_DIRS=$(git diff --name-only HEAD~1 | grep -E 'apps/.*' | cut -d/ -f2 | sort -u)
         echo "Changed directories: $CHANGED_DIRS"
@@ -49,10 +49,6 @@ phases:
   post_build:
     commands:
       - rm -rf ./mfa-template-pipelin
-      # - aws s3 sync ./apps/_shell/dist/ s3://mfa-template-s3
-      # - aws s3 sync ./apps/health/dist/ s3://mfa-template-s3/health --exclude "index.html"
-      # - aws s3 sync ./apps/insurance/dist/ s3://mfa-template-s3/insurance --exclude "index.html"
-      # - aws s3 sync ./apps/mydata/dist/ s3://mfa-template-s3/mydata --exclude "index.html"
       - |
         for dir in $CHANGED_DIRS; do
           case "$dir" in

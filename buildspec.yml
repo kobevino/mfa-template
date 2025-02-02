@@ -6,7 +6,8 @@ phases:
       - n 20.10.0
       - npm install -g pnpm
   pre_build:
-    - pnpm i
+    commands:
+      - pnpm i
   build:
     commands:
       - pnpm build

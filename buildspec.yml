@@ -6,13 +6,6 @@ phases:
       - n 20.10.0
       - npm install -g pnpm
       - pnpm install --frozen-lockfile
-      # - |
-      #   if [ -d node_modules ]; then
-      #     echo "Using cached node_modules"
-      #   else
-      #     echo "Installing new dependencies"
-      #     pnpm install --frozen-lockfile
-      #   fi
   pre_build:
     commands:
       - echo $GITHUB_URL
@@ -86,4 +79,7 @@ artifacts:
   base-directory: ./
 cache:
   paths:
-    - "/node_modules/**/*"
+    - '/root/.pnpm-store/**/*'
+    - 'node_modules/**/*'
+    - 'apps/*/node_modules/**/*'
+    - 'packages/*/node_modules/**/*'

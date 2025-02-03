@@ -5,19 +5,10 @@ phases:
     commands:
       - n 20.10.0
       - npm install -g pnpm
-      - pnpm config set store-dir $CODEBUILD_SRC_DIR/.pnpm-store
+      - pnpm config set store-dir /root/.pnpm-store
+      - pnpm config set cache-dir /root/.cache/pnpm
       - pnpm config set shamefully-hoist true
-      - pnpm install --frozen-lockfile
-
-      # # 디렉토리 생성 및 권한 설정 추가
-      # - mkdir -p node_modules
-      # - mkdir -p .pnpm-store
-      # - chmod -R 777 node_modules
-      # - chmod -R 777 .pnpm-store
-      # # store-dir 경로를 현재 디렉토리 기준으로 설정
-      # - pnpm config set store-dir ./.pnpm-store
-      # - pnpm config set shamefully-hoist true
-      # - pnpm install --frozen-lockfile --prefer-offline
+      - pnpm install --frozen-lockfile --prefer-offline
   pre_build:
     commands:
       - echo $GITHUB_URL
@@ -91,7 +82,5 @@ artifacts:
   base-directory: ./
 cache:
   paths:
-    - /codebuild/output/src*/src/.pnpm-store/**/*
-    - /codebuild/output/src*/src/node_modules/**/*
-    - /codebuild/output/src*/src/apps/*/node_modules/**/*
-    - /codebuild/output/src*/src/packages/*/node_modules/**/*
+    - '/root/.pnpm-store/**/*'
+    - '/root/.cache/pnpm/**/*'

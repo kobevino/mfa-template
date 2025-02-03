@@ -5,7 +5,7 @@ phases:
     commands:
       - n 20.10.0
       - npm install -g pnpm
-      - pnpm config set store-dir .pnpm-store
+      # - pnpm config set store-dir .pnpm-store
       - pnpm install --frozen-lockfile
   pre_build:
     commands:

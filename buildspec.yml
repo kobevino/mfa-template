@@ -19,6 +19,9 @@ phases:
       - git remote add origin $GITHUB_URL
       - git fetch origin main
       - git reset --hard origin/main
+      - pwd
+      - ls -la
+      - mkdir -p node_modules
       - pnpm config set store-dir .pnpm-store
       - pnpm config set shamefully-hoist true
       - pnpm install --frozen-lockfile

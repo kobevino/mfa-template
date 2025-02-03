@@ -5,7 +5,7 @@ phases:
     commands:
       - n 20.10.0
       - npm install -g pnpm
-      - pnpm config set store-dir .pnpm-store
+      - pnpm config set store-dir $CODEBUILD_SRC_DIR/.pnpm-store
       - pnpm config set shamefully-hoist true
       - pnpm install --frozen-lockfile
   pre_build:
@@ -81,7 +81,7 @@ artifacts:
   base-directory: ./
 cache:
   paths:
-    - '/root/.pnpm-store/**/*'
-    - '/root/node_modules/**/*'
-    - '/root/apps/*/node_modules/**/*'
-    - '/root/packages/*/node_modules/**/*'
+    - .pnpm-store/**/*
+    - node_modules/**/*
+    - apps/*/node_modules/**/*
+    - packages/*/node_modules/**/*

@@ -5,10 +5,7 @@ phases:
     commands:
       - n 20.10.0
       - npm install -g pnpm
-      - pnpm config set store-dir /root/.pnpm-store
-      - pnpm config set cache-dir /root/.cache/pnpm
-      - pnpm config set shamefully-hoist true
-      - pnpm install --frozen-lockfile --prefer-offline
+      - pnpm install --frozen-lockfile
   pre_build:
     commands:
       - echo $GITHUB_URL
@@ -83,4 +80,3 @@ artifacts:
 cache:
   paths:
     - '/root/.pnpm-store/**/*'
-    - '/root/.cache/pnpm/**/*'

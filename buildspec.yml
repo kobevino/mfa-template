@@ -83,6 +83,6 @@ artifacts:
 cache:
   paths:
     - '/root/.pnpm-store/**/*'
-    - 'node_modules/**/*'
-    - 'apps/*/node_modules/**/*'
-    - 'packages/*/node_modules/**/*'
+    - '/root/node_modules/**/*'
+    - '/root/apps/*/node_modules/**/*'
+    - '/root/packages/*/node_modules/**/*'

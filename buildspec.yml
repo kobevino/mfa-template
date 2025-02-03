@@ -79,4 +79,4 @@ artifacts:
   base-directory: ./
 cache:
   paths:
-    - '/root/.pnpm-store/**/*'
+    - '$(pnpm store path)/**/*'

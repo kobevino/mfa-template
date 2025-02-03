@@ -19,11 +19,5 @@
 	"packageManager": "pnpm@9.0.0",
 	"engines": {
 		"node": ">=18"
-	},
-	"dependencies": {
-		"angular": "^1.8.3",
-		"recoil": "^0.7.7",
-		"underscore": "^1.13.7",
-		"vue": "^3.5.13"
 	}
 }

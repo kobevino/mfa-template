@@ -5,6 +5,7 @@ phases:
     commands:
       - n 20.10.0
       - npm install -g pnpm
+      - pnpm install
       # - pnpm config set store-dir .pnpm-store
       # - pnpm config set shamefully-hoist true
       # - pnpm install --frozen-lockfile
@@ -19,12 +20,6 @@ phases:
       - git remote add origin $GITHUB_URL
       - git fetch origin main
       - git reset --hard origin/main
-      - pwd
-      - ls -la
-      - mkdir -p node_modules
-      - pnpm config set store-dir .pnpm-store
-      - pnpm config set shamefully-hoist true
-      - pnpm install --frozen-lockfile
       - |
         CHANGED_DIRS=$(git diff --name-only HEAD~1 | grep -E 'apps/.*' | cut -d/ -f2 | sort -u)
         echo "Changed directories: $CHANGED_DIRS"

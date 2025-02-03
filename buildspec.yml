@@ -5,6 +5,7 @@ phases:
     commands:
       - n 20.10.0
       - npm install -g pnpm
+      - pnpm config set store-dir .pnpm-store
       - pnpm install --frozen-lockfile
   pre_build:
     commands:
@@ -79,4 +80,5 @@ artifacts:
   base-directory: ./
 cache:
   paths:
-    - '$(pnpm store path)/**/*'
+    - '.pnpm-store/**/*'
+    - 'node_modules/**/*'

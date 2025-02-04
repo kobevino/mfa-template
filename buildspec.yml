@@ -15,15 +15,19 @@ phases:
       - git init .
       - git branch -M main
       - git remote add origin $GITHUB_URL
-      - git fetch origin main --depth=1000
+      - git fetch origin main
       - git reset --hard origin/main
       # - |
       #   CHANGED_DIRS=$(git diff --name-only HEAD~1 | grep -E 'apps/.*' | cut -d/ -f2 | sort -u)
       #   echo "Changed directories: $CHANGED_DIRS"
-      - |
-        BASE_COMMIT=$(git rev-parse origin/main)
-        CHANGED_DIRS=$(git diff --name-only $BASE_COMMIT HEAD | grep -E 'apps/.*' | cut -d/ -f2 | sort -u)
-        echo "Changed directories: $CHANGED_DIRS"
+      - CHANGED_FILES=$(git diff --name-only HEAD^)
+      - CHANGED_DIRS=$(echo "$CHANGED_FILES" | grep -E '^apps/' | cut -d/ -f2 | sort -u)
+      - PACKAGES_CHANGED=$(echo "$CHANGED_FILES" | grep -E '^packages/' || true)
+      - if [ -n "$PACKAGES_CHANGED" ]; then
+          echo "Changes detected in packages/, rebuilding all apps.";
+          CHANGED_DIRS="_shell health insurance mydata";
+        fi
+      - echo "Final build list: $CHANGED_DIRS"
   build:
     commands:
       - |

@@ -17,8 +17,12 @@ phases:
       - git remote add origin $GITHUB_URL
       - git fetch origin main
       - git reset --hard origin/main
+      # - |
+      #   CHANGED_DIRS=$(git diff --name-only HEAD~1 | grep -E 'apps/.*' | cut -d/ -f2 | sort -u)
+      #   echo "Changed directories: $CHANGED_DIRS"
       - |
-        CHANGED_DIRS=$(git diff --name-only $(git rev-list -n 1 origin/main)..HEAD | grep -E 'apps/.*' | cut -d/ -f2 | sort -u)
+        BASE_COMMIT=$(git merge-base HEAD origin/main)
+        CHANGED_DIRS=$(git diff --name-only $BASE_COMMIT HEAD | grep -E 'apps/.*' | cut -d/ -f2 | sort -u)
         echo "Changed directories: $CHANGED_DIRS"
   build:
     commands:

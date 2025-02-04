@@ -10,7 +10,7 @@ const router = createBrowserRouter([
 			<div>
 				Host App
 				<nav>
-					<Link to="/health">health 11</Link>
+					<Link to="/health">health</Link>
 					<br />
 					<Link to="/insurance">insurance</Link>
 					<br />

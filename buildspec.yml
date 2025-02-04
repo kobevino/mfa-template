@@ -21,14 +21,13 @@ phases:
       #   CHANGED_DIRS=$(git diff --name-only HEAD~1 | grep -E 'apps/.*' | cut -d/ -f2 | sort -u)
       #   echo "Changed directories: $CHANGED_DIRS"
       - |
-        CHANGED_FILES=$(git diff --name-only origin/main)
-        CHANGED_DIRS=$(echo "$CHANGED_FILES" | grep -E '^apps/' | cut -d/ -f2 | sort -u)
+        CHANGED_FILES=$(git diff --name-only $(git rev-parse origin/main))        CHANGED_DIRS=$(echo "$CHANGED_FILES" | grep -E '^apps/' | cut -d/ -f2 | sort -u)
         PACKAGES_CHANGED=$(echo "$CHANGED_FILES" | grep -E '^packages/' || true)
         if [ -n "$PACKAGES_CHANGED" ]; then
           echo "Changes detected in packages/, rebuilding all apps.";
           CHANGED_DIRS="_shell health insurance mydata";
         fi
-        echo "Final build list: $CHANGED_DIRS"
+        echo "CHANGED_DIRS: $CHANGED_DIRS"
   build:
     commands:
       - |

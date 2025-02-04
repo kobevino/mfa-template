@@ -21,7 +21,7 @@ phases:
       #   CHANGED_DIRS=$(git diff --name-only HEAD~1 | grep -E 'apps/.*' | cut -d/ -f2 | sort -u)
       #   echo "Changed directories: $CHANGED_DIRS"
       - |
-        BASE_COMMIT=$(git merge-base HEAD origin/main)
+        BASE_COMMIT=$(git rev-parse origin/main)
         CHANGED_DIRS=$(git diff --name-only $BASE_COMMIT HEAD | grep -E 'apps/.*' | cut -d/ -f2 | sort -u)
         echo "Changed directories: $CHANGED_DIRS"
   build:

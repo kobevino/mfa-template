@@ -8,6 +8,7 @@ phases:
       - pnpm install
   pre_build:
     commands:
+      - echo $GITHUB_TOKEN
       - echo $GITHUB_URL
       - yum install -y git
       - echo "Checking for changes in apps"
@@ -17,20 +18,16 @@ phases:
       - git remote add origin $GITHUB_URL
       - git fetch origin main
       - git reset --hard origin/main
+      - git fetch origin success-log
+      - git checkout success-log
+      - git pull origin success-log
+      - git checkout main
       # - |
       #   CHANGED_DIRS=$(git diff --name-only HEAD~1 | grep -E 'apps/.*' | cut -d/ -f2 | sort -u)
       #   echo "Changed directories: $CHANGED_DIRS"
       - |
-        LAST_COMMIT=$(git log --format="%H" -n 2 | tail -n 1)
-        CURRENT_COMMIT=$(git log --format="%H" -n 1)
-        CHANGED_FILES=$(git diff --name-only $LAST_COMMIT $CURRENT_COMMIT)
-        CHANGED_DIRS=$(echo "$CHANGED_FILES" | grep -E '^apps/' | cut -d/ -f2 | sort -u)
-        PACKAGES_CHANGED=$(echo "$CHANGED_FILES" | grep -E '^packages/' || true)
-        if [ -n "$PACKAGES_CHANGED" ]; then
-          echo "Changes detected in packages/, rebuilding all apps.";
-          CHANGED_DIRS="_shell health insurance mydata";
-        fi
-        echo "CHANGED_DIRS: $CHANGED_DIRS"
+        CHANGED_DIRS=$(git diff --name-only $(git merge-base main success-log) HEAD | grep -E 'apps/.*' | cut -d/ -f2 | sort -u)
+        echo "Changed directories: $CHANGED_DIRS"
   build:
     commands:
       - |
@@ -84,6 +81,15 @@ phases:
           esac
         done
       - aws cloudfront create-invalidation --distribution-id E1RI9WI1EF5TV3 --paths '/*'
+      - echo "Committing deployment changes to success-log branch"
+      - git config --global user.email "kobe8vino24@gmail.com"
+      - git config --global user.name "kobevino"
+      - git checkout success-log
+      - git merge origin/main --no-ff -m 'Merged main into success-log after successful deployment'
+      - |
+        echo "https://kobevino:$GITHUB_TOKEN@github.com" > ~/.git-credentials
+        git config --global credential.helper store
+        git push origin success-log
 artifacts:
   files:
     - "**/*"

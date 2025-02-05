@@ -22,9 +22,6 @@ phases:
       - git checkout success-log
       - git pull origin success-log
       - git checkout main
-      # - |
-      #   CHANGED_DIRS=$(git diff --name-only HEAD~1 | grep -E 'apps/.*' | cut -d/ -f2 | sort -u)
-      #   echo "Changed directories: $CHANGED_DIRS"
       - |
         CHANGED_DIRS=$(git diff --name-only $(git merge-base main success-log) HEAD | grep -E 'apps/.*' | cut -d/ -f2 | sort -u)
         echo "Changed directories: $CHANGED_DIRS"

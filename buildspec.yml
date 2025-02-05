@@ -20,6 +20,7 @@ phases:
       - git fetch origin success-log
       - git checkout success-log
       - git pull origin success-log
+      - git checkout main
       # - |
       #   CHANGED_DIRS=$(git diff --name-only HEAD~1 | grep -E 'apps/.*' | cut -d/ -f2 | sort -u)
       #   echo "Changed directories: $CHANGED_DIRS"
@@ -81,7 +82,7 @@ phases:
       - aws cloudfront create-invalidation --distribution-id E1RI9WI1EF5TV3 --paths '/*'
       - echo "Committing deployment changes to success-log branch"
       - git config --global user.email "kobe8vino24@gmail.com"
-      - git config --global user.name "kobe"
+      - git config --global user.name "kobevino"
       - git checkout success-log
       - git merge origin/main --no-ff -m 'Merged main into success-log after successful deployment'
       - git push origin success-log

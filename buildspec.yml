@@ -85,8 +85,10 @@ phases:
       - git config --global user.name "kobevino"
       - git checkout success-log
       - git merge origin/main --no-ff -m 'Merged main into success-log after successful deployment'
-      - export GIT_TERMINAL_PROMPT=1 
-      - git push origin success-log
+      - |
+        git config --global credential.helper store
+        echo "https://$GITHUB_TOKEN@github.com" > ~/.git-credentials
+        git push origin success-log
 artifacts:
   files:
     - "**/*"

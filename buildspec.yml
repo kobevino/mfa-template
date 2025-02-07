@@ -58,7 +58,7 @@ phases:
           case "$dir" in
             "_shell")
               echo "Syncing _shell app"
-              aws s3 sync ./apps/_shell/dist/ s3://mfa-template-s3 --delete
+              aws s3 sync ./apps/_shell/dist/ s3://mfa-template-s3
               ;;
             "health")
               echo "Syncing health app"

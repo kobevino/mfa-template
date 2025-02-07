@@ -59,6 +59,7 @@ phases:
             "_shell")
               echo "Syncing _shell app"
               aws s3 sync ./apps/_shell/dist/ s3://mfa-template-s3
+              aws cloudfront create-invalidation --distribution-id E1RI9WI1EF5TV3 --paths "/"
               ;;
             "health")
               echo "Syncing health app"
@@ -68,17 +69,18 @@ phases:
             "insurance")
               echo "Syncing insurance app"
               aws s3 sync ./apps/insurance/dist/ s3://mfa-template-s3/insurance --exclude "index.html"
+              aws cloudfront create-invalidation --distribution-id E1RI9WI1EF5TV3 --paths "/insurance/assets/remoteEntry.js"
               ;;
             "mydata")
               echo "Syncing mydata app"
               aws s3 sync ./apps/mydata/dist/ s3://mfa-template-s3/mydata --exclude "index.html"
+              aws cloudfront create-invalidation --distribution-id E1RI9WI1EF5TV3 --paths "/mydata/assets/remoteEntry.js"
               ;;
             *)
               echo "Unknown directory: $dir"
               ;;
           esac
         done
-      - aws cloudfront create-invalidation --distribution-id E1RI9WI1EF5TV3 --paths "/"
       - echo "Committing deployment changes to success-log branch"
       - git config --global user.email "kobe8vino24@gmail.com"
       - git config --global user.name "kobevino"

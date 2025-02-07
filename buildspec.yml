@@ -59,6 +59,8 @@ phases:
             "_shell")
               echo "Syncing _shell app"
               aws s3 sync ./apps/_shell/dist/ s3://mfa-template-s3
+              aws s3 cp ./apps/_shell/dist/index.html s3://mfa-template-s3/index.html \
+                --cache-control "no-cache, no-store, must-revalidate" --acl public-read
               ;;
             "health")
               echo "Syncing health app"

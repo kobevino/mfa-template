@@ -30,34 +30,6 @@ phases:
         echo "Cache missed directories: $MISS_DIRS"
   post_build:
     commands:
-      # - |
-      #   for dir in $MISS_DIRS; do
-      #     case "$dir" in
-      #       "shell")
-      #         echo "Syncing _shell app to S3"
-      #         aws s3 sync ./apps/_shell/dist/ s3://mfa-template-s3
-      #         aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_ID --paths "/"
-      #         ;;
-      #       "health")
-      #         echo "Syncing health app to S3"
-      #         aws s3 sync ./apps/health/dist/ s3://mfa-template-s3/health --exclude "index.html"
-      #         aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_ID --paths "/health/assets/remoteEntry.js"
-      #         ;;
-      #       "insurance")
-      #         echo "Syncing insurance app to S3"
-      #         aws s3 sync ./apps/insurance/dist/ s3://mfa-template-s3/insurance --exclude "index.html"
-      #         aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_ID --paths "/insurance/assets/remoteEntry.js"
-      #         ;;
-      #       "mydata")
-      #         echo "Syncing mydata app to S3"
-      #         aws s3 sync ./apps/mydata/dist/ s3://mfa-template-s3/mydata --exclude "index.html"
-      #         aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_ID --paths "/mydata/assets/remoteEntry.js"
-      #         ;;
-      #       *)
-      #         echo "Unknown directory: $dir"
-      #         ;;
-      #     esac
-      #   done
       - |
         echo "Running deploy script..."
         chmod +x ./deploy.sh

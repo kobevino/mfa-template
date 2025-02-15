@@ -1,104 +1,3 @@
-# version: 0.2
-
-# phases:
-#   install:
-#     commands:
-#       - n 20.10.0
-#       - npm install -g pnpm
-#       - pnpm install
-#   pre_build:
-#     commands:
-#       - echo $GITHUB_TOKEN
-#       - echo $GITHUB_URL
-#       - yum install -y git
-#       - echo "Checking for changes in apps"
-#       - git config --global init.defaultBranch main
-#       - git init .
-#       - git branch -M main
-#       - git remote add origin $GITHUB_URL
-#       - git fetch origin main
-#       - git reset --hard origin/main
-#       - git fetch origin success-log
-#       - git checkout success-log
-#       - git pull origin success-log
-#       - git checkout main
-#       - |
-#         CHANGED_DIRS=$(git diff --name-only $(git merge-base main success-log) HEAD | grep -E 'apps/.*' | cut -d/ -f2 | sort -u)
-#         echo "Changed directories: $CHANGED_DIRS"
-#   build:
-#     commands:
-#       - |
-#         for dir in $CHANGED_DIRS; do
-#           case "$dir" in
-#             "_shell")
-#               echo "Building _shell app"
-#               pnpm --filter shell build
-#               ;;
-#             "health")
-#               echo "Building health app"
-#               pnpm --filter health build
-#               ;;
-#             "insurance")
-#               echo "Building insurance app"
-#               pnpm --filter insurance build
-#               ;;
-#             "mydata")
-#               echo "Building mydata app"
-#               pnpm --filter mydata build
-#               ;;
-#             *)
-#               echo "Unknown directory: $dir"
-#               ;;
-#           esac
-#         done
-#   post_build:
-#     commands:
-#       - |
-#         for dir in $CHANGED_DIRS; do
-#           case "$dir" in
-#             "_shell")
-#               echo "Syncing _shell app"
-#               aws s3 sync ./apps/_shell/dist/ s3://mfa-template-s3
-#               aws cloudfront create-invalidation --distribution-id E1RI9WI1EF5TV3 --paths "/"
-#               ;;
-#             "health")
-#               echo "Syncing health app"
-#               aws s3 sync ./apps/health/dist/ s3://mfa-template-s3/health --exclude "index.html"
-#               aws cloudfront create-invalidation --distribution-id E1RI9WI1EF5TV3 --paths "/health/assets/remoteEntry.js"
-#               ;;
-#             "insurance")
-#               echo "Syncing insurance app"
-#               aws s3 sync ./apps/insurance/dist/ s3://mfa-template-s3/insurance --exclude "index.html"
-#               aws cloudfront create-invalidation --distribution-id E1RI9WI1EF5TV3 --paths "/insurance/assets/remoteEntry.js"
-#               ;;
-#             "mydata")
-#               echo "Syncing mydata app"
-#               aws s3 sync ./apps/mydata/dist/ s3://mfa-template-s3/mydata --exclude "index.html"
-#               aws cloudfront create-invalidation --distribution-id E1RI9WI1EF5TV3 --paths "/mydata/assets/remoteEntry.js"
-#               ;;
-#             *)
-#               echo "Unknown directory: $dir"
-#               ;;
-#           esac
-#         done
-#       - echo "Committing deployment changes to success-log branch"
-#       - git config --global user.email "kobe8vino24@gmail.com"
-#       - git config --global user.name "kobevino"
-#       - git checkout success-log
-#       - git merge origin/main --no-ff -m 'Merged main into success-log after successful deployment'
-#       - |
-#         echo "https://kobevino:$GITHUB_TOKEN@github.com" > ~/.git-credentials
-#         git config --global credential.helper store
-#         git push origin success-log
-# artifacts:
-#   files:
-#     - "**/*"
-#   base-directory: ./
-# cache:
-#   paths:
-#     - '.pnpm-store/**/*'
-
-
 version: 0.2
 
 phases:
@@ -109,14 +8,13 @@ phases:
       - pnpm install
   build:
     commands:
-      # Turborepo 빌드 실행 (캐시 사용)
       - echo "Running turborepo build..."
-      - MISS_DIRS=$(pnpm turbo build 2>&1 | grep "cache miss" | awk -F':' '{print $1}')
-      - echo "Cache missed directories: $MISS_DIRS"
+      - | 
+        MISS_DIRS=$(pnpm turbo build 2>&1 | grep "cache miss" | awk -F':' '{print $1}')
+        echo "Cache missed directories: $MISS_DIRS"
   post_build:
     commands:
       - |
-        # 캐시 미스가 발생한 디렉토리만 배포
         for dir in $MISS_DIRS; do
           case "$dir" in
             "_shell")

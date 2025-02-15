@@ -50,33 +50,6 @@ $ pnpm --filter [package name] dev:alone
 }
 ```
 
-## Scaffolding
-
-```bash
-apps/
-  ├── _shell/
-  ├── health/
-  │     └── src
-  │          ├── app/
-  │          ├── pages/
-  │          ├── widgets/
-  │          ├── features/
-  │          └── entities/
-  ├── insurance/
-  └── mydata/
-packages/
-  ├── typescript-config/
-  ├── shared/
-  └── ui/
-```
-
-* packages: apps안에서 공통으로 필요한 코드들은 packages에서 관리
-* app: 애플리케이션 초기화 및 provider, router, global style 전역 설정
-* pages: 해당 레이어는 애플리케이션 페이지를 담당
-* widgets: 페이지에서 사용되는 독립적인 UI 담당
-* features: 해당 레이어는 비즈니스 가치를 전달하는 기능을 담당.
-* entities: 해당 레이어는 api, model, hook 등을 다루는 비즈니스 엔티티 영역 담당
-
 ## Handling Routing
 
 * Hybrid Approach
@@ -132,3 +105,16 @@ const routes = [
 
 - [Handling Routing in a Microfrontend Architecture](https://article.arunangshudas.com/handling-routing-in-a-microfrontend-architecture-71472a3ec3d6)
 - [(번역) 기능 분할 설계 - 최고의 프런트엔드 아키텍처](https://emewjin.github.io/feature-sliced-design/)
+
+
+* ci/cd 이슈 
+
+remote cache에 저장된 동일한 빌드 결과물일 경우 빌드 스크립트는 빌드를 수행하지 않아 배포되지 않음. 그렇기 때문에 이런 특이한 케이스일 경우 build commands 마지막 부분에 아래와 같이 수동으로 자신이 작업한 폴더를 주셔야합니다.
+
+```sh
+BUILD_LOG=$(pnpm build 2>&1) || { echo 'Build failed!'; exit 1; }
+echo "Build log: $BUILD_LOG"
+MISS_DIRS=$(echo "$BUILD_LOG" | grep -a "cache miss" | awk -F':' '{print $1}' | uniq)
+echo "Cache missed directories: $MISS_DIRS"
+MISS_DIRS="shell health" # 이렇게 적어주셔야 post_build 단계로 넘어감.
+```

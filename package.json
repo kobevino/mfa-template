@@ -2,7 +2,7 @@
 	"name": "mfa-template",
 	"private": true,
 	"scripts": {
-		"build": "turbo build",
+		"build": "turbo build --team=dev",
 		"dev": "turbo dev",
 		"lint": "turbo lint",
 		"format": "prettier --write \"**/*.{ts,tsx,md}\"",

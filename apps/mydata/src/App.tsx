@@ -7,7 +7,7 @@ const routes = [
 	},
 	{
 		path: 'test',
-		element: <div>Mydata Test App</div>,
+		element: <div>Mydata Test App ㅋㅋㅋ</div>,
 	},
 	{
 		path: '*',

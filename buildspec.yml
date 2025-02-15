@@ -12,7 +12,12 @@ phases:
       - export TURBO_TEAM=$TURBO_TEAM
       - export TURBO_TOKEN=$TURBO_TOKEN
       - mkdir -p .turbo
-      - echo "{\n  \"apiurl\": \"$TURBO_API\",\n  \"teamslug\": \"$TURBO_TEAM\",\n  \"token\": \"$TURBO_TOKEN\"\n}" > .turbo/config.json
+      - |
+        echo "{
+          \"apiurl\": \"$TURBO_API\",
+          \"teamslug\": \"$TURBO_TEAM\",
+          \"token\": \"$TURBO_TOKEN\"
+        }" > .turbo/config.json
       - cat .turbo/config.json
   build:
     commands:

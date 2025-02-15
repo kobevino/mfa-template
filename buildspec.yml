@@ -10,7 +10,7 @@ phases:
     commands:
       - echo "Running turborepo build..."
       - | 
-        MISS_DIRS=$(pnpm turbo build 2>&1 | grep "cache miss" | awk -F':' '{print $1}')
+        MISS_DIRS=$(pnpm build 2>&1 | grep "cache miss" | awk -F':' '{print $1}')
         echo "Cache missed directories: $MISS_DIRS"
   post_build:
     commands:

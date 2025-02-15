@@ -2,7 +2,7 @@
 	"name": "mfa-template",
 	"private": true,
 	"scripts": {
-		"build": "turbo build --team=dev",
+		"build": "turbo build --team=\"dev\" --token=\"123\"",
 		"dev": "turbo dev",
 		"lint": "turbo lint",
 		"format": "prettier --write \"**/*.{ts,tsx,md}\"",

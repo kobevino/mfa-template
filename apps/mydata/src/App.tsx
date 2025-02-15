@@ -3,11 +3,11 @@ import { Route, Routes } from 'react-router-dom';
 const routes = [
 	{
 		path: '',
-		element: <div>Mydata App 1</div>,
+		element: <div>Mydata Application</div>,
 	},
 	{
 		path: 'test',
-		element: <div>Mydata Test App ㅋㅋㅋ</div>,
+		element: <div>Mydata Test App</div>,
 	},
 	{
 		path: '*',

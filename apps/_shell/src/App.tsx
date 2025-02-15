@@ -1,4 +1,4 @@
-import HealthApp from 'health/Appp';
+import HealthApp from 'health/App';
 import InsuranceApp from 'insurance/App';
 import MydataApp from 'mydata/App';
 import { Link, RouterProvider, createBrowserRouter } from 'react-router-dom';

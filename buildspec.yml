@@ -11,6 +11,14 @@ phases:
       - export TURBO_API=$TURBO_API
       - export TURBO_TEAM=$TURBO_TEAM
       - export TURBO_TOKEN=$TURBO_TOKEN
+      - mkdir -p .turbo
+      - |
+        echo "{
+          \"apiurl\": \"$TURBO_API\",
+          \"teamslug\": \"$TURBO_TEAM\",
+          \"token\": \"$TURBO_TOKEN\"
+        }" > .turbo/config.json
+      - cat .turbo/config.json
   build:
     commands:
       - echo "Running turborepo build..."

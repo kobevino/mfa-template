@@ -64,3 +64,4 @@ artifacts:
 cache:
   paths:
     - '.pnpm-store/**/*'
+    - '.turbo/**/*'

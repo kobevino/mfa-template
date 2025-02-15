@@ -17,7 +17,7 @@ phases:
       - |
         for dir in $MISS_DIRS; do
           case "$dir" in
-            "_shell")
+            "shell")
               echo "Syncing _shell app to S3"
               aws s3 sync ./apps/_shell/dist/ s3://mfa-template-s3
               aws cloudfront create-invalidation --distribution-id E1RI9WI1EF5TV3 --paths "/"

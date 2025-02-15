@@ -59,7 +59,7 @@ phases:
 
 artifacts:
   files:
-    - "**/*"
+    - "apps/*/dist/**/*"
   base-directory: ./
 cache:
   paths:

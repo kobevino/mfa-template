@@ -11,7 +11,7 @@ const routes = [
 	},
 	{
 		path: '*',
-		element: <div>404 Health Error123</div>,
+		element: <div>404 Health Error</div>,
 	},
 ];
 

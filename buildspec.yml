@@ -111,7 +111,7 @@ phases:
     commands:
       # Turborepo 빌드 실행 (캐시 사용)
       - echo "Running turborepo build..."
-      - MISS_DIRS=$(pnpm build | grep "Cache miss" | cut -d' ' -f1)
+      - MISS_DIRS=$(pnpm turbo build 2>&1 | grep "cache miss" | awk -F':' '{print $1}')
       - echo "Cache missed directories: $MISS_DIRS"
   post_build:
     commands:

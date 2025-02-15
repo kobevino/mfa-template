@@ -20,5 +20,9 @@
 		"check": {
 			"dependsOn": ["^check"]
 		}
+	},
+	"remoteCache": {
+		"enabled": true,
+		"apiUrl": "http://turborepo-remote-cache-alb-1132362747.ap-northeast-2.elb.amazonaws.com"
 	}
 }

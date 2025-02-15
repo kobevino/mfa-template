@@ -6,6 +6,12 @@ phases:
       - n 20.10.0
       - npm install -g pnpm
       - pnpm install
+  pre_build:
+    commands:
+      - export TURBO_API=$TURBO_API
+      - export TURBO_TEAM=$TURBO_TEAM
+      - export TURBO_TOKEN=$TURBO_TOKEN
+      - echo $TURBO_TOKEN
   build:
     commands:
       - echo "Running turborepo build..."

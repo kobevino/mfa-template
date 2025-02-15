@@ -1,4 +1,4 @@
-import HealthApp from 'health/Appp';
+import HealthApp from 'health/App';
 import InsuranceApp from 'insurance/App';
 import MydataApp from 'mydata/App';
 import { Link, RouterProvider, createBrowserRouter } from 'react-router-dom';
@@ -7,8 +7,8 @@ const router = createBrowserRouter([
 	{
 		path: '/',
 		element: (
-			<div>
-				Host application
+			<div>123
+				Host application 이재성123
 				<nav>
 					<Link to="/health">health</Link>
 					<br />

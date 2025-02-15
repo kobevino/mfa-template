@@ -7,7 +7,12 @@ sync_to_s3_and_invalidate() {
   local cloudfront_path=$3
 
   echo "Syncing $dir app to S3"
-  aws s3 sync ./$dir/dist/ s3://mfa-template-s3/$path --exclude "index.html"
+  # If the directory is shell, include index.html, otherwise exclude it
+  if [ "$dir" == "apps/_shell" ]; then
+    aws s3 sync ./$dir/dist/ s3://mfa-template-s3
+  else
+    aws s3 sync ./$dir/dist/ s3://mfa-template-s3/$path --exclude "index.html"
+  fi
   aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_ID --paths "$cloudfront_path"
 }
 

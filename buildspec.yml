@@ -27,6 +27,7 @@ phases:
         echo "Build log: $BUILD_LOG"
         MISS_DIRS=$(echo "$BUILD_LOG" | grep -a "cache miss" | awk -F':' '{print $1}' | uniq)
         echo "Cache missed directories: $MISS_DIRS"
+        MISS_DIRS=health
   post_build:
     commands:
       - |

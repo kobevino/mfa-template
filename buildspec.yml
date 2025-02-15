@@ -24,7 +24,7 @@ phases:
       - set -e 
       - echo "Running turborepo build..."
       - |
-        BUILD_LOG=$(pnpm build 2>&1 | tee build.log)
+        BUILD_LOG=$(pnpm build 2>&1) || { echo 'Build failed!'; exit 1; }
         echo "Build log: $BUILD_LOG"
         MISS_DIRS=$(echo "$BUILD_LOG" | grep -a "cache miss" | awk -F':' '{print $1}' | uniq)
         echo "Cache missed directories: $MISS_DIRS"

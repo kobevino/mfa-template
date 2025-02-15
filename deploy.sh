@@ -36,5 +36,3 @@ for dir in $MISS_DIRS; do
       ;;
   esac
 done
-
-echo "Deployment complete!"

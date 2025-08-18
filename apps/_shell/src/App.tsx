@@ -18,6 +18,7 @@ const router = createBrowserRouter([
 					<Link to="/mydata">mydata</Link>
 					<br />
 				</nav>
+				<div>TEST</div>
 			</div>
 		),
 	},

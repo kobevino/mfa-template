@@ -20,7 +20,7 @@ sync_to_s3_and_invalidate() {
 for dir in $MISS_DIRS; do
   case "$dir" in
     "shell")
-      sync_to_s3_and_invalidate "apps/_shell" "" "/index.html"
+      sync_to_s3_and_invalidate "apps/_shell" "" "/"
       ;;
     "health")
       sync_to_s3_and_invalidate "apps/health" "health" "/health/assets/remoteEntry.js"

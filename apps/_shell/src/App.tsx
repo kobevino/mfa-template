@@ -11,7 +11,7 @@ const router = createBrowserRouter([
 				Host Application
 				<h1>The End!!</h1>
 				<nav>
-					<Link to="/health">health 1</Link>
+					<Link to="/health">health 1 안녕</Link>
 					<br />
 					<Link to="/insurance">insurance 2</Link>
 					<br />

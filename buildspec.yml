@@ -23,12 +23,17 @@ phases:
     commands:
       - set -e 
       - echo "Running turborepo build..."
-      - pnpm build
+      - |
+        BUILD_LOG=$(pnpm build 2>&1) || { echo 'Build failed!'; exit 1; }
+        echo "Build log: $BUILD_LOG"
+        MISS_DIRS=$(echo "$BUILD_LOG" | grep -a "cache miss" | awk -F':' '{print $1}' | uniq)
+        echo "Cache missed directories: $MISS_DIRS"
   post_build:
     commands:
       - |
         echo "Running deploy script..."
-        aws cloudfront create-invalidation --distribution-id E1RI9WI1EF5TV3 --paths '/*'
+        chmod +x ./deploy.sh
+        ./deploy.sh
         echo "Deployment complete!"
 artifacts:
   files:

@@ -15,7 +15,7 @@ const router = createBrowserRouter([
 					<br />
 					<Link to="/insurance">insurance2</Link>
 					<br />
-					<Link to="/mydata">mydata3</Link>
+					<Link to="/mydata">mydata345</Link>
 					<br />
 				</nav>
 				<div>TEST</div>

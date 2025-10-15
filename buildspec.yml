@@ -30,10 +30,10 @@ phases:
         echo "Running deploy script..."
         chmod +x ./deploy.sh
 
-        sync_to_s3_and_invalidate "apps/_shell" ""
-        sync_to_s3_and_invalidate "apps/health" "health"
-        sync_to_s3_and_invalidate "apps/insurance" "insurance"
-        sync_to_s3_and_invalidate "apps/mydata" "mydata"
+        aws s3 sync ./apps/_shell/dist/ s3://mfa-template-s3
+        aws s3 sync ./apps/health/dist/ s3://mfa-template-s3/health --exclude "index.html"
+        aws s3 sync ./apps/insurance/dist/ s3://mfa-template-s3/insurance --exclude "index.html"
+        aws s3 sync ./apps/mydata/dist/ s3://mfa-template-s3/mydata --exclude "index.html"
         aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_ID --paths "/*"
 
         echo "Deployment complete!"

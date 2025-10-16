@@ -15,23 +15,39 @@ sync_to_s3_and_invalidate() {
   aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_ID --paths "/*"
 }
 
-# Loop through missed directories and deploy
-for dir in $MISS_DIRS; do
-  case "$dir" in
-    "shell")
-      sync_to_s3_and_invalidate "apps/_shell" ""
-      ;;
-    "health")
-      sync_to_s3_and_invalidate "apps/health" "health"
-      ;;
-    "insurance")
-      sync_to_s3_and_invalidate "apps/insurance" "insurance"
-      ;;
-    "mydata")
-      sync_to_s3_and_invalidate "apps/mydata" "mydata"
-      ;;
-    *)
-      echo "Unknown directory: $dir"
-      ;;
-  esac
+apps=(
+  "shell"
+  "health"
+  "insurance"
+  "mydata"
+)
+
+for app in "${apps[@]}"; do
+  if [ "$app" == "shell" ]; then
+    sync_to_s3_and_invalidate "apps/_shell" ""
+  else
+    sync_to_s3_and_invalidate "apps/$app" "$app"
+  fi
 done
+
+# Loop through missed directories and deploy
+# for dir in $MISS_DIRS; do
+#   case "$dir" in
+#     "shell")
+#       sync_to_s3_and_invalidate "apps/_shell" ""
+#       ;;
+#     "health")
+#       sync_to_s3_and_invalidate "apps/health" "health"
+#       ;;
+#     "insurance")
+#       sync_to_s3_and_invalidate "apps/insurance" "insurance"
+#       ;;
+#     "mydata")
+#       sync_to_s3_and_invalidate "apps/mydata" "mydata"
+#       ;;
+#     *)
+#       echo "Unknown directory: $dir"
+#       ;;
+#   esac
+# done
+

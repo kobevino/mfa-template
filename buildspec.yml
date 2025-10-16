@@ -29,13 +29,7 @@ phases:
       - |
         echo "Running deploy script..."
         chmod +x ./deploy.sh
-
-        aws s3 sync ./apps/_shell/dist/ s3://mfa-template-s3
-        aws s3 sync ./apps/health/dist/ s3://mfa-template-s3/health --exclude "index.html"
-        aws s3 sync ./apps/insurance/dist/ s3://mfa-template-s3/insurance --exclude "index.html"
-        aws s3 sync ./apps/mydata/dist/ s3://mfa-template-s3/mydata --exclude "index.html"
-        aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_ID --paths "/*"
-
+        ./deploy.sh
         echo "Deployment complete!"
 artifacts:
   files:
